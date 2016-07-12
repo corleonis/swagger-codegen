@@ -167,6 +167,7 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
         }
         supportingFiles.add(new SupportingFile("git_push.sh.mustache", "", "git_push.sh"));
         supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
+        supportingFiles.add(new SupportingFile("travis.mustache", "", ".travis.yml"));
     }
 
     private static String dropDots(String str) {
@@ -589,5 +590,16 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
         p.example = example;
     }
 
+    @Override
+    public String escapeQuotationMark(String input) {
+        // remove ' to avoid code injection
+        return input.replace("'", "");
+    }
+
+    @Override
+    public String escapeUnsafeCharacters(String input) {
+        // remove multiline comment
+        return input.replace("'''", "'_'_'");
+    }
 
 }

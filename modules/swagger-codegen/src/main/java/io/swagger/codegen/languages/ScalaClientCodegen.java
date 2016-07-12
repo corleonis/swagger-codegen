@@ -87,6 +87,8 @@ public class ScalaClientCodegen extends DefaultCodegen implements CodegenConfig 
         supportingFiles.add(new SupportingFile( "gradle-wrapper.jar",
                 gradleWrapperPackage.replace( ".", File.separator ), "gradle-wrapper.jar") );
 
+        supportingFiles.add(new SupportingFile("build.sbt.mustache", "", "build.sbt"));
+
         importMapping.remove("List");
         importMapping.remove("Set");
         importMapping.remove("Map");
@@ -332,6 +334,17 @@ public class ScalaClientCodegen extends DefaultCodegen implements CodegenConfig 
     public String toModelFilename(String name) {
         // should be the same as the model name
         return toModelName(name);
+    }
+
+    @Override
+    public String escapeQuotationMark(String input) {
+        // remove " to avoid code injection
+        return input.replace("\"", "");
+    }
+
+    @Override
+    public String escapeUnsafeCharacters(String input) {
+        return input.replace("*/", "*_/").replace("/*", "/_*");
     }
 
 }

@@ -3,7 +3,7 @@
 """
     Swagger Petstore
 
-    This spec is mainly for testing Petstore server and contains fake endpoints, models. Please do not use this for any other purpose. Special characters: \" \\ 
+    This spec is mainly for testing Petstore server and contains fake endpoints, models. Please do not use this for any other purpose. Special characters: \" \\
 
     OpenAPI spec version: 1.0.0
     Contact: apiteam@swagger.io
@@ -82,9 +82,48 @@ class FakeApi(object):
                  If the method is called asynchronously,
                  returns the request thread.
         """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.test_endpoint_parameters_with_http_info(number, double, string, byte, **kwargs)
+        else:
+            (data) = self.test_endpoint_parameters_with_http_info(number, double, string, byte, **kwargs)
+            return data
+
+    def test_endpoint_parameters_with_http_info(self, number, double, string, byte, **kwargs):
+        """
+        Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
+        Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.test_endpoint_parameters_with_http_info(number, double, string, byte, callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param float number: None (required)
+        :param float double: None (required)
+        :param str string: None (required)
+        :param str byte: None (required)
+        :param int integer: None
+        :param int int32: None
+        :param int int64: None
+        :param float float: None
+        :param str binary: None
+        :param date date: None
+        :param datetime date_time: None
+        :param str password: None
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
 
         all_params = ['number', 'double', 'string', 'byte', 'integer', 'int32', 'int64', 'float', 'binary', 'date', 'date_time', 'password']
         all_params.append('callback')
+        all_params.append('_return_http_data_only')
 
         params = locals()
         for key, val in iteritems(params['kwargs']):
@@ -181,7 +220,7 @@ class FakeApi(object):
         # Authentication setting
         auth_settings = []
 
-        response = self.api_client.call_api(resource_path, 'POST',
+        return self.api_client.call_api(resource_path, 'POST',
                                             path_params,
                                             query_params,
                                             header_params,
@@ -190,5 +229,114 @@ class FakeApi(object):
                                             files=local_var_files,
                                             response_type=None,
                                             auth_settings=auth_settings,
-                                            callback=params.get('callback'))
-        return response
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))
+
+    def test_enum_query_parameters(self, **kwargs):
+        """
+        To test enum query parameters
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.test_enum_query_parameters(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str enum_query_string: Query parameter enum test (string)
+        :param float enum_query_integer: Query parameter enum test (double)
+        :param float enum_query_double: Query parameter enum test (double)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+        kwargs['_return_http_data_only'] = True
+        if kwargs.get('callback'):
+            return self.test_enum_query_parameters_with_http_info(**kwargs)
+        else:
+            (data) = self.test_enum_query_parameters_with_http_info(**kwargs)
+            return data
+
+    def test_enum_query_parameters_with_http_info(self, **kwargs):
+        """
+        To test enum query parameters
+        
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please define a `callback` function
+        to be invoked when receiving the response.
+        >>> def callback_function(response):
+        >>>     pprint(response)
+        >>>
+        >>> thread = api.test_enum_query_parameters_with_http_info(callback=callback_function)
+
+        :param callback function: The callback function
+            for asynchronous request. (optional)
+        :param str enum_query_string: Query parameter enum test (string)
+        :param float enum_query_integer: Query parameter enum test (double)
+        :param float enum_query_double: Query parameter enum test (double)
+        :return: None
+                 If the method is called asynchronously,
+                 returns the request thread.
+        """
+
+        all_params = ['enum_query_string', 'enum_query_integer', 'enum_query_double']
+        all_params.append('callback')
+        all_params.append('_return_http_data_only')
+
+        params = locals()
+        for key, val in iteritems(params['kwargs']):
+            if key not in all_params:
+                raise TypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method test_enum_query_parameters" % key
+                )
+            params[key] = val
+        del params['kwargs']
+
+        resource_path = '/fake'.replace('{format}', 'json')
+        path_params = {}
+
+        query_params = {}
+        if 'enum_query_integer' in params:
+            query_params['enum_query_integer'] = params['enum_query_integer']
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+        if 'enum_query_string' in params:
+            form_params.append(('enum_query_string', params['enum_query_string']))
+        if 'enum_query_double' in params:
+            form_params.append(('enum_query_double', params['enum_query_double']))
+
+        body_params = None
+
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.\
+            select_header_accept(['application/json'])
+        if not header_params['Accept']:
+            del header_params['Accept']
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.\
+            select_header_content_type(['application/json'])
+
+        # Authentication setting
+        auth_settings = []
+
+        return self.api_client.call_api(resource_path, 'GET',
+                                            path_params,
+                                            query_params,
+                                            header_params,
+                                            body=body_params,
+                                            post_params=form_params,
+                                            files=local_var_files,
+                                            response_type=None,
+                                            auth_settings=auth_settings,
+                                            callback=params.get('callback'),
+                                            _return_http_data_only=params.get('_return_http_data_only'))

@@ -21,6 +21,11 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
 
     protected String packageVersion = "1.0.0";
     protected String packageName = "IO.Swagger";
+    protected String packageTitle = "Swagger Library";
+    protected String packageProductName = "SwaggerLibrary";
+    protected String packageDescription = "A library generated from a Swagger doc";
+    protected String packageCompany = "Swagger";
+    protected String packageCopyright = "No Copyright";
 
     protected String sourceFolder = "src";
 
@@ -52,6 +57,10 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
 
         setReservedWordsLowerCase(
                 Arrays.asList(
+                        // set client as a reserved word to avoid conflicts with IO.Swagger.Client
+                        // this is a workaround and can be removed if c# api client is updated to use
+                        // fully qualified name
+                        "client",
                         // local variable names in API methods (endpoints)
                         "localVarPath", "localVarPathParams", "localVarQueryParams", "localVarHeaderParams", 
                         "localVarFormParams", "localVarFileParams", "localVarStatusCode", "localVarResponse",
@@ -189,7 +198,42 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
         } else {
             additionalProperties.put(CodegenConstants.PACKAGE_NAME, packageName);
         }
+        
+        // {{packageTitle}}
+        if (additionalProperties.containsKey(CodegenConstants.PACKAGE_TITLE)) {
+            setPackageTitle((String) additionalProperties.get(CodegenConstants.PACKAGE_TITLE));
+        } else {
+            additionalProperties.put(CodegenConstants.PACKAGE_TITLE, packageTitle);
+        }
+        
+        // {{packageProductName}}
+        if (additionalProperties.containsKey(CodegenConstants.PACKAGE_PRODUCTNAME)) {
+            setPackageProductName((String) additionalProperties.get(CodegenConstants.PACKAGE_PRODUCTNAME));
+        } else {
+            additionalProperties.put(CodegenConstants.PACKAGE_PRODUCTNAME, packageProductName);
+        }
 
+        // {{packageDescription}}
+        if (additionalProperties.containsKey(CodegenConstants.PACKAGE_DESCRIPTION)) {
+            setPackageDescription((String) additionalProperties.get(CodegenConstants.PACKAGE_DESCRIPTION));
+        } else {
+            additionalProperties.put(CodegenConstants.PACKAGE_DESCRIPTION, packageDescription);
+        }
+        
+        // {{packageCompany}}
+        if (additionalProperties.containsKey(CodegenConstants.PACKAGE_COMPANY)) {
+            setPackageCompany((String) additionalProperties.get(CodegenConstants.PACKAGE_COMPANY));
+        } else {
+            additionalProperties.put(CodegenConstants.PACKAGE_COMPANY, packageCompany);
+        }
+        
+        // {{packageCopyright}}
+        if (additionalProperties.containsKey(CodegenConstants.PACKAGE_COPYRIGHT)) {
+            setPackageCopyright((String) additionalProperties.get(CodegenConstants.PACKAGE_COPYRIGHT));
+        } else {
+            additionalProperties.put(CodegenConstants.PACKAGE_COPYRIGHT, packageCopyright);
+        }
+        
         // {{useDateTimeOffset}}
         if (additionalProperties.containsKey(CodegenConstants.USE_DATETIME_OFFSET)) {
             useDateTimeOffset(Boolean.valueOf(additionalProperties.get(CodegenConstants.USE_DATETIME_OFFSET).toString()));
@@ -219,7 +263,7 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
                 // check to see if model name is same as the property name
                 // which will result in compilation error
                 // if found, prepend with _ to workaround the limitation
-                if (var.name.equals(cm.name)) {
+                if (var.name.equalsIgnoreCase(cm.name)) {
                     var.name = "_" + var.name;
                 }
             }
@@ -541,7 +585,27 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
     public void setPackageVersion(String packageVersion) {
         this.packageVersion = packageVersion;
     }
+    
+    public void setPackageTitle(String packageTitle) {
+		this.packageTitle = packageTitle;
+	}
+    
+    public void setPackageProductName(String packageProductName) {
+		this.packageProductName = packageProductName;
+	}
 
+	public void setPackageDescription(String packageDescription) {
+		this.packageDescription = packageDescription;
+	}
+	
+    public void setPackageCompany(String packageCompany) {
+		this.packageCompany = packageCompany;
+	}
+    
+    public void setPackageCopyright(String packageCopyright) {
+		this.packageCopyright = packageCopyright;
+	}
+    
     public void setSourceFolder(String sourceFolder) {
         this.sourceFolder = sourceFolder;
     }
@@ -554,8 +618,6 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
         enumName = enumName.replaceFirst("_$", "");
 
         enumName = camelize(enumName) + "Enum";
-
-        LOGGER.info("toEnumVarName = " + enumName);
 
         if (enumName.matches("\\d.*")) { // starts with number
             return "_" + enumName;
@@ -598,4 +660,16 @@ public abstract class AbstractCSharpCodegen extends DefaultCodegen implements Co
     public String testPackageName() {
         return this.packageName + ".Test";
     }
+
+    @Override
+    public String escapeQuotationMark(String input) {
+        // remove " to avoid code injection
+        return input.replace("\"", "");
+    }
+
+    @Override
+    public String escapeUnsafeCharacters(String input) {
+        return input.replace("*/", "*_/").replace("/*", "/_*");
+    }
+
 }

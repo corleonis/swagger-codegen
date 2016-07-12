@@ -46,7 +46,8 @@ use \ArrayAccess;
 /**
  * MixedPropertiesAndAdditionalPropertiesClass Class Doc Comment
  *
- * @category    Class
+ * @category    Class */
+/** 
  * @package     Swagger\Client
  * @author      http://github.com/swagger-api/swagger-codegen
  * @license     http://www.apache.org/licenses/LICENSE-2.0 Apache Licene v2
@@ -66,7 +67,8 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
       */
     protected static $swaggerTypes = array(
         'uuid' => 'string',
-        'date_time' => '\DateTime'
+        'date_time' => '\DateTime',
+        'map' => 'map[string,\Swagger\Client\Model\Animal]'
     );
 
     public static function swaggerTypes()
@@ -80,7 +82,8 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
      */
     protected static $attributeMap = array(
         'uuid' => 'uuid',
-        'date_time' => 'dateTime'
+        'date_time' => 'dateTime',
+        'map' => 'map'
     );
 
     public static function attributeMap()
@@ -94,7 +97,8 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
      */
     protected static $setters = array(
         'uuid' => 'setUuid',
-        'date_time' => 'setDateTime'
+        'date_time' => 'setDateTime',
+        'map' => 'setMap'
     );
 
     public static function setters()
@@ -108,7 +112,8 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
      */
     protected static $getters = array(
         'uuid' => 'getUuid',
-        'date_time' => 'getDateTime'
+        'date_time' => 'getDateTime',
+        'map' => 'getMap'
     );
 
     public static function getters()
@@ -134,6 +139,7 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
     {
         $this->container['uuid'] = isset($data['uuid']) ? $data['uuid'] : null;
         $this->container['date_time'] = isset($data['date_time']) ? $data['date_time'] : null;
+        $this->container['map'] = isset($data['map']) ? $data['map'] : null;
     }
 
     /**
@@ -200,6 +206,27 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
 
         return $this;
     }
+
+    /**
+     * Gets map
+     * @return map[string,\Swagger\Client\Model\Animal]
+     */
+    public function getMap()
+    {
+        return $this->container['map'];
+    }
+
+    /**
+     * Sets map
+     * @param map[string,\Swagger\Client\Model\Animal] $map
+     * @return $this
+     */
+    public function setMap($map)
+    {
+        $this->container['map'] = $map;
+
+        return $this;
+    }
     /**
      * Returns true if offset exists. False otherwise.
      * @param  integer $offset Offset
@@ -258,3 +285,5 @@ class MixedPropertiesAndAdditionalPropertiesClass implements ArrayAccess
         return json_encode(\Swagger\Client\ObjectSerializer::sanitizeForSerialization($this));
     }
 }
+
+

@@ -1,7 +1,7 @@
 /* 
  * Swagger Petstore
  *
- * This spec is mainly for testing Petstore server and contains fake endpoints, models. Please do not use this for any other purpose. Special characters: \" \\ 
+ * This spec is mainly for testing Petstore server and contains fake endpoints, models. Please do not use this for any other purpose. Special characters: \" \\
  *
  * OpenAPI spec version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -26,6 +26,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
 using IO.Swagger.Client;
+using IO.Swagger.Model;
 
 namespace IO.Swagger.Api
 {
@@ -35,6 +36,27 @@ namespace IO.Swagger.Api
     public interface IFakeApi : IApiAccessor
     {
         #region Synchronous Operations
+        /// <summary>
+        /// To test \&quot;client\&quot; model
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>ModelClient</returns>
+        ModelClient TestClientModel (ModelClient body);
+
+        /// <summary>
+        /// To test \&quot;client\&quot; model
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>ApiResponse of ModelClient</returns>
+        ApiResponse<ModelClient> TestClientModelWithHttpInfo (ModelClient body);
         /// <summary>
         /// Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
         /// </summary>
@@ -78,8 +100,54 @@ namespace IO.Swagger.Api
         /// <param name="password">None (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> TestEndpointParametersWithHttpInfo (decimal? number, double? _double, string _string, byte[] _byte, int? integer = null, int? int32 = null, long? int64 = null, float? _float = null, byte[] binary = null, DateTime? date = null, DateTime? dateTime = null, string password = null);
+        /// <summary>
+        /// To test enum query parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns></returns>
+        void TestEnumQueryParameters (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null);
+
+        /// <summary>
+        /// To test enum query parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> TestEnumQueryParametersWithHttpInfo (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
+        /// <summary>
+        /// To test \&quot;client\&quot; model
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>Task of ModelClient</returns>
+        System.Threading.Tasks.Task<ModelClient> TestClientModelAsync (ModelClient body);
+
+        /// <summary>
+        /// To test \&quot;client\&quot; model
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>Task of ApiResponse (ModelClient)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ModelClient>> TestClientModelAsyncWithHttpInfo (ModelClient body);
         /// <summary>
         /// Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
         /// </summary>
@@ -123,6 +191,31 @@ namespace IO.Swagger.Api
         /// <param name="password">None (optional)</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> TestEndpointParametersAsyncWithHttpInfo (decimal? number, double? _double, string _string, byte[] _byte, int? integer = null, int? int32 = null, long? int64 = null, float? _float = null, byte[] binary = null, DateTime? date = null, DateTime? dateTime = null, string password = null);
+        /// <summary>
+        /// To test enum query parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task TestEnumQueryParametersAsync (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null);
+
+        /// <summary>
+        /// To test enum query parameters
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> TestEnumQueryParametersAsyncWithHttpInfo (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null);
         #endregion Asynchronous Operations
     }
 
@@ -233,6 +326,163 @@ namespace IO.Swagger.Api
         public void AddDefaultHeader(string key, string value)
         {
             this.Configuration.AddDefaultHeader(key, value);
+        }
+
+        /// <summary>
+        /// To test \&quot;client\&quot; model 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>ModelClient</returns>
+        public ModelClient TestClientModel (ModelClient body)
+        {
+             ApiResponse<ModelClient> localVarResponse = TestClientModelWithHttpInfo(body);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// To test \&quot;client\&quot; model 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>ApiResponse of ModelClient</returns>
+        public ApiResponse< ModelClient > TestClientModelWithHttpInfo (ModelClient body)
+        {
+            // verify the required parameter 'body' is set
+            if (body == null)
+                throw new ApiException(400, "Missing required parameter 'body' when calling FakeApi->TestClientModel");
+
+            var localVarPath = "/fake";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            // set "format" to json by default
+            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            localVarPathParams.Add("format", "json");
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("TestClientModel", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ModelClient>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (ModelClient) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ModelClient)));
+            
+        }
+
+        /// <summary>
+        /// To test \&quot;client\&quot; model 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>Task of ModelClient</returns>
+        public async System.Threading.Tasks.Task<ModelClient> TestClientModelAsync (ModelClient body)
+        {
+             ApiResponse<ModelClient> localVarResponse = await TestClientModelAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        /// To test \&quot;client\&quot; model 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">client model</param>
+        /// <returns>Task of ApiResponse (ModelClient)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ModelClient>> TestClientModelAsyncWithHttpInfo (ModelClient body)
+        {
+            // verify the required parameter 'body' is set
+            if (body == null)
+                throw new ApiException(400, "Missing required parameter 'body' when calling FakeApi->TestClientModel");
+
+            var localVarPath = "/fake";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            // set "format" to json by default
+            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            localVarPathParams.Add("format", "json");
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.PATCH, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("TestClientModel", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ModelClient>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                (ModelClient) Configuration.ApiClient.Deserialize(localVarResponse, typeof(ModelClient)));
+            
         }
 
         /// <summary>
@@ -455,6 +705,153 @@ namespace IO.Swagger.Api
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("TestEndpointParameters", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        /// To test enum query parameters 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns></returns>
+        public void TestEnumQueryParameters (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null)
+        {
+             TestEnumQueryParametersWithHttpInfo(enumQueryString, enumQueryInteger, enumQueryDouble);
+        }
+
+        /// <summary>
+        /// To test enum query parameters 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> TestEnumQueryParametersWithHttpInfo (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null)
+        {
+
+            var localVarPath = "/fake";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            // set "format" to json by default
+            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            localVarPathParams.Add("format", "json");
+            if (enumQueryInteger != null) localVarQueryParams.Add("enum_query_integer", Configuration.ApiClient.ParameterToString(enumQueryInteger)); // query parameter
+            if (enumQueryString != null) localVarFormParams.Add("enum_query_string", Configuration.ApiClient.ParameterToString(enumQueryString)); // form parameter
+            if (enumQueryDouble != null) localVarFormParams.Add("enum_query_double", Configuration.ApiClient.ParameterToString(enumQueryDouble)); // form parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("TestEnumQueryParameters", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        /// <summary>
+        /// To test enum query parameters 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task TestEnumQueryParametersAsync (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null)
+        {
+             await TestEnumQueryParametersAsyncWithHttpInfo(enumQueryString, enumQueryInteger, enumQueryDouble);
+
+        }
+
+        /// <summary>
+        /// To test enum query parameters 
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="enumQueryString">Query parameter enum test (string) (optional, default to -efg)</param>
+        /// <param name="enumQueryInteger">Query parameter enum test (double) (optional)</param>
+        /// <param name="enumQueryDouble">Query parameter enum test (double) (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> TestEnumQueryParametersAsyncWithHttpInfo (string enumQueryString = null, decimal? enumQueryInteger = null, double? enumQueryDouble = null)
+        {
+
+            var localVarPath = "/fake";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json"
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            // set "format" to json by default
+            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            localVarPathParams.Add("format", "json");
+            if (enumQueryInteger != null) localVarQueryParams.Add("enum_query_integer", Configuration.ApiClient.ParameterToString(enumQueryInteger)); // query parameter
+            if (enumQueryString != null) localVarFormParams.Add("enum_query_string", Configuration.ApiClient.ParameterToString(enumQueryString)); // form parameter
+            if (enumQueryDouble != null) localVarFormParams.Add("enum_query_double", Configuration.ApiClient.ParameterToString(enumQueryDouble)); // form parameter
+
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("TestEnumQueryParameters", localVarResponse);
                 if (exception != null) throw exception;
             }
 
