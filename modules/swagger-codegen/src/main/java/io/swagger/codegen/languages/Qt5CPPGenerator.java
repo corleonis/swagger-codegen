@@ -11,6 +11,7 @@ import io.swagger.models.properties.DateTimeProperty;
 import io.swagger.models.properties.DecimalProperty;
 import io.swagger.models.properties.DoubleProperty;
 import io.swagger.models.properties.FloatProperty;
+import io.swagger.models.properties.BaseIntegerProperty;
 import io.swagger.models.properties.IntegerProperty;
 import io.swagger.models.properties.LongProperty;
 import io.swagger.models.properties.MapProperty;
@@ -124,6 +125,7 @@ public class Qt5CPPGenerator extends DefaultCodegen implements CodegenConfig {
         //TODO binary should be mapped to byte array
         // mapped to String as a workaround
         typeMapping.put("binary", "QString");
+        typeMapping.put("ByteArray", "QByteArray");
 
         importMapping = new HashMap<String, String>();
 
@@ -138,6 +140,7 @@ public class Qt5CPPGenerator extends DefaultCodegen implements CodegenConfig {
         systemIncludes.add("QMap");
         systemIncludes.add("QDate");
         systemIncludes.add("QDateTime");
+        systemIncludes.add("QByteArray");
     }
 
     /**
@@ -268,6 +271,10 @@ public class Qt5CPPGenerator extends DefaultCodegen implements CodegenConfig {
             return "0";
         } else if (p instanceof LongProperty) {
             return "0L";
+        } else if (p instanceof BaseIntegerProperty) {
+            // catchall for any other format of the swagger specifiction
+            // integer type not explicitly handled above
+            return "0";
         } else if (p instanceof DecimalProperty) {
             return "0.0";
         } else if (p instanceof MapProperty) {

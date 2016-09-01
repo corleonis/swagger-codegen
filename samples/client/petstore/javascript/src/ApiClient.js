@@ -64,8 +64,9 @@
      * @type {Array.<String>}
      */
     this.authentications = {
-      'petstore_auth': {type: 'oauth2'},
-      'api_key': {type: 'apiKey', 'in': 'header', name: 'api_key'}
+      'api_key': {type: 'apiKey', 'in': 'header', name: 'api_key'},
+      'http_basic_test': {type: 'basic'},
+      'petstore_auth': {type: 'oauth2'}
     };
     /**
      * The default HTTP headers to be included for all API calls.
@@ -154,7 +155,7 @@
   /**
    * Checks whether the given parameter value represents file-like content.
    * @param param The parameter to check.
-   * @returns {Boolean} <code>true</code> if <code>param</code> represents a file. 
+   * @returns {Boolean} <code>true</code> if <code>param</code> represents a file.
    */
   exports.prototype.isFileParam = function(param) {
     // fs.ReadStream in Node.js (but not in runtime like browserify)
@@ -206,7 +207,7 @@
 
   /**
    * Enumeration of collection format separator strategies.
-   * @enum {String} 
+   * @enum {String}
    * @readonly
    */
   exports.CollectionFormatEnum = {

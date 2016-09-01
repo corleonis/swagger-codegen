@@ -34,7 +34,7 @@ using Newtonsoft.Json.Converters;
 namespace IO.Swagger.Model
 {
     /// <summary>
-    /// Gets or Sets EnumClass
+    /// Defines EnumClass
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum EnumClass
@@ -47,16 +47,16 @@ namespace IO.Swagger.Model
         Abc,
         
         /// <summary>
-        /// Enum efg for "-efg"
+        /// Enum Efg for "-efg"
         /// </summary>
         [EnumMember(Value = "-efg")]
-        efg,
+        Efg,
         
         /// <summary>
-        /// Enum xyz for "(xyz)"
+        /// Enum Xyz for "(xyz)"
         /// </summary>
         [EnumMember(Value = "(xyz)")]
-        xyz
+        Xyz
     }
 
 }
